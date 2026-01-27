@@ -2,7 +2,7 @@
 using App.Domain;
 using App.Services;
 using App.Views;
-using InvoiceApp.Helpers;
+using App.Helpers;
 
 namespace App;
 

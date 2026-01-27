@@ -2,7 +2,7 @@ using App.Controllers;
 using App.Infrastructure;
 using App.Services;
 using App.Views;
-using InvoiceApp.Helpers;
+using App.Helpers;
 
 namespace App;
 

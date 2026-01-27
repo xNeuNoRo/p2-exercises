@@ -1,6 +1,6 @@
 using App.Domain;
 using App.Models;
-using InvoiceApp.Helpers;
+using App.Helpers;
 
 namespace App.Services;
 

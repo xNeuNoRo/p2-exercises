@@ -1,7 +1,7 @@
 using App.Controllers;
 using App.Domain;
 using App.Services;
-using InvoiceApp.Helpers;
+using App.Helpers;
 
 namespace App.Views;
 

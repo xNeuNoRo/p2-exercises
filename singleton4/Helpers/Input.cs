@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace App.Helpers;
 
 public static class Input
@@ -44,6 +46,7 @@ public static class Input
     public class ReadRequiredIntArgs
     {
         public bool AllowEmpty { get; set; } = false;
+        public double? MinValue { get; set; } = null;
     }
 
     // Pedir un input entero valido
@@ -73,7 +76,7 @@ public static class Input
             }
 
             // Intentar parsear el entero
-            if (int.TryParse(strValue, out int number))
+            if (int.TryParse(strValue, out int number) && number >= args.MinValue)
             {
                 return number;
             }
@@ -112,12 +115,19 @@ public static class Input
             }
 
             // Intentar parsear el double
-            if (double.TryParse(strValue, out double number) && number >= args.MinValue)
+            if (!double.TryParse(strValue, out double number))
             {
-                return number;
+                Console.WriteLine("Debes ingresar un numero valido.");
+                continue;
             }
 
-            Console.WriteLine("Debes ingresar un numero valido.");
+            if (args.MinValue.HasValue && number < args.MinValue.Value)
+            {
+                Console.WriteLine($"El numero debe ser mayor o igual a {args.MinValue.Value}.");
+                continue;
+            }
+
+            return number;
         }
     }
 
@@ -186,6 +196,42 @@ public static class Input
 
             // SI llego hasta aqui, quiere decir que no es valido, simplemente mostramos el mensaje
             Console.WriteLine("Debes ingresar solamente 'y' o 'n'.");
+        }
+    }
+
+    public class ReadRequiredDateTimeArgs
+    {
+        public string Format { get; set; } = "dd/MM/yyyy";
+        public string Culture { get; set; } = "es-ES";
+    }
+
+    public static DateTime ReadRequiredDateTime(string? prompt, ReadRequiredDateTimeArgs args)
+    {
+        while (true)
+        {
+            // Imprimir un prompt inicial si se le pasa
+            if (!string.IsNullOrEmpty(prompt))
+            {
+                Console.Write(prompt);
+            }
+
+            string? strValue = Console.ReadLine()?.Trim();
+
+            // Intentar parsear el DateTime
+            if (
+                DateTime.TryParseExact(
+                    strValue,
+                    args.Format, // "dd/MM/yyyy"
+                    new CultureInfo(args.Culture), // "es-ES"
+                    DateTimeStyles.None,
+                    out DateTime dateTime
+                )
+            )
+            {
+                return dateTime;
+            }
+
+            Console.WriteLine("Debes ingresar una fecha valida.");
         }
     }
 }

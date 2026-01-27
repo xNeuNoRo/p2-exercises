@@ -1,6 +1,6 @@
 using App.Controllers;
 using App.Domain;
-using InvoiceApp.Helpers;
+using App.Helpers;
 
 namespace App.Views;
 

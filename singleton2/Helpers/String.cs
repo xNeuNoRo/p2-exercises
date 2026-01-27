@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace InvoiceApp.Helpers;
+namespace App.Helpers;
 
 public static class String
 {
