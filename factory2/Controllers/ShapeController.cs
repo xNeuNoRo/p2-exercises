@@ -1,4 +1,5 @@
-using App.Domain;
+using App.Domain.Entities;
+using App.Domain.Enums;
 using App.Services;
 using App.Views;
 

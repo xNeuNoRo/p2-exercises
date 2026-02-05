@@ -1,4 +1,4 @@
-using App.Domain;
+using App.Domain.Entities;
 
 namespace App.Models;
 

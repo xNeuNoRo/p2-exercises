@@ -1,4 +1,6 @@
-using App.Domain;
+using App.Domain.Entities;
+using App.Domain.Enums;
+using App.Domain.Factories;
 using App.Helpers;
 using App.Models;
 

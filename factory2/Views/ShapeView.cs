@@ -1,5 +1,6 @@
 using App.Controllers;
-using App.Domain;
+using App.Domain.Entities;
+using App.Domain.Enums;
 using App.Helpers;
 
 namespace App.Views;

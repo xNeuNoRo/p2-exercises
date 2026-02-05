@@ -1,6 +1,6 @@
 using App.Models;
 
-namespace App.Domain;
+namespace App.Domain.Factories;
 
 public class ShapeFactory
 {
