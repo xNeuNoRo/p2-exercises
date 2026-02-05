@@ -66,7 +66,7 @@ public class ConverterApp
             decimal amount = AskForAmount();
             var converter = _currencyConverterFactory.Create(currency);
             decimal convertedAmount = converter.Convert(amount);
-            Console.WriteLine($"Monto convertido: {convertedAmount:N2}");
+            Console.WriteLine($"Monto convertido: {convertedAmount:N2} {currency}");
             PressEnterToContinue();
         }
     }
