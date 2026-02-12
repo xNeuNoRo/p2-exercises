@@ -9,9 +9,9 @@ namespace App;
 
 public class RolesApp
 {
-    private AdminService _adminService;
-    private ClientService _clientService;
-    private GuestService _guestService;
+    private readonly AdminService _adminService;
+    private readonly ClientService _clientService;
+    private readonly GuestService _guestService;
 
     public RolesApp()
     {
@@ -38,13 +38,20 @@ public class RolesApp
                 new InteractiveMenu.MenuArgs
                 {
                     MenuTitle = "Roles App",
-                    Choices = ["Administrador", "Cliente", "Invitado"],
+                    Choices = ["Administrador", "Cliente", "Invitado","Salir"],
                 }
             );
 
             UserTypes userType; // Valor por defecto
             switch (choice)
             {
+                case -1:
+                case 3:
+                    if (HandleExit(true))
+                    {
+                        loop = false;
+                    }
+                    continue;
                 case 0:
                     userType = UserTypes.Admin;
                     break;
@@ -61,6 +68,31 @@ public class RolesApp
             }
 
             HandleUserActions(userType);
+        }
+    }
+
+    private bool HandleExit(bool shouldConfirm)
+    {
+        if (shouldConfirm)
+        {
+            var confirm = InteractiveMenu.Show(
+                new InteractiveMenu.MenuArgs
+                {
+                    MenuTitle = "Estas seguro que deseas salir?",
+                    Choices = ["Si, deseo salir.", "No, no quiero salir ahora."],
+                }
+            );
+
+            if (confirm == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
