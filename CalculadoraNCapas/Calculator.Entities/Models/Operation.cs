@@ -4,8 +4,18 @@ namespace Calculator.Entities.Models;
 
 public class Operation
 {
-    public decimal A { get; set; }
-    public decimal B { get; set; }
-    public OperationType Type { get; set; }
-    public decimal Result { get; set; }
+    public decimal A { get; init; }
+    public decimal B { get; init; }
+    public OperationType Type { get; init; }
+    public decimal Result { get; init; }
+    
+    public Operation() { }
+
+    public Operation(decimal a, decimal b, OperationType type, decimal result)
+    {
+        A = a;
+        B = b;
+        Type = type;
+        Result = result;
+    }
 }
