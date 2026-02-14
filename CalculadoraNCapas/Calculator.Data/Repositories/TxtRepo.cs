@@ -1,10 +1,11 @@
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.Reflection;
+using Calculator.Data.Contracts;
 
-namespace App.Infrastructure.Repositories;
+namespace Calculator.Data.Repositories;
 
-public class TxtRepo<T>
+public class TxtRepo<T> : ITxtRepo<T>
     where T : class, new() // Restringimos T para que sea una clase que tenga un constructor sin parametros
 // Ya que de esa forma podemos crear instancias de T dentro de la clase y asignar manualmente sus propiedades 1 por 1
 {

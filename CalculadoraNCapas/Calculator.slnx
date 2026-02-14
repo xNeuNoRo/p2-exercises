@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Calculator.Business/Calculator.Business.csproj" />
+  <Project Path="Calculator.Data/Calculator.Data.csproj" />
+  <Project Path="Calculator.Entities/Calculator.Entities.csproj" />
+  <Project Path="Calculator.Presentation/Calculator.Presentation.csproj" />
+</Solution>
