@@ -19,12 +19,6 @@ public class OperationFactory
             _ => throw new InvalidOperationException("Tipo de operacion no soportada."),
         };
 
-        return new Operation
-        {
-            A = a,
-            B = b,
-            Type = type,
-            Result = result,
-        };
+        return new Operation(a, b, type, result);
     }
 }
