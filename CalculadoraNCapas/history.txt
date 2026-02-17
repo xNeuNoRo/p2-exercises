@@ -1,0 +1,15 @@
+A: 10
+B: 10
+Type: Addition
+Result: 20
+------
+A: 100
+B: 10
+Type: Multiplication
+Result: 1000
+------
+A: 5
+B: 5.2
+Type: Division
+Result: 0.9615384615384615384615384615
+------

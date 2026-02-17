@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Text.Json;
 
 namespace App.Infrastructure.Repositories;
@@ -12,8 +13,10 @@ public class JsonRepo<T>
     // Opciones de serializacion JSON
     private readonly JsonSerializerOptions _options;
 
-    // SINGLETON
-    private static JsonRepo<T>? _instance;
+    // SINGLETON POR ARCHIVO (O TABLA)
+    // Diccionario concurrente para almacenar las instancias de JsonRepo<T> por ruta de archivo, garantizando que solo haya una instancia por archivo (o tabla basicamente ya que simula una tabla sql)
+    // El diccionario concurrente es igual que un diccionario normal pero con la seguridad de que es atomico
+    private static readonly ConcurrentDictionary<string, JsonRepo<T>> _instances = new();
 
     // Constructor que inicializa la ruta del archivo y las opciones de serializacion
     private JsonRepo(string filePath)
@@ -25,33 +28,30 @@ public class JsonRepo<T>
         {
             WriteIndented = true, // Indenta el JSON para que sea mas legible
             PropertyNameCaseInsensitive = true, // Ignora mayusculas/minusculas en los nombres de las propiedades
+            AllowTrailingCommas = true, // Permite comas al final de los objetos/arrays en el JSON
         };
 
-        // Si el archivo no existe, lo crea con un array vacío
-        if (!File.Exists(_filePath))
-        {
-            // Creamos un archivo JSON inicial con un array vacío
-            File.WriteAllText(_filePath, "[]");
-        }
+        // Asegura que el archivo exista
+        EnsureFile();
     }
 
-    // Metodo para obtener la instancia singleton
-    public static JsonRepo<T> GetInstance(string filePath)
+    // Metodo para asegurar que el archivo exista y tenga un array vacío si esta vacio
+    private void EnsureFile()
     {
-        if (_instance == null)
-        {
-            _instance = new JsonRepo<T>(filePath);
-        }
-
-        return _instance;
+        // Si el archivo no existe o esta vacio, lo crea con un array vacío
+        if (!File.Exists(_filePath) || new FileInfo(_filePath).Length == 0)
+            File.WriteAllText(_filePath, "[]");
     }
+
+    // Metodo para obtener la instancia unica de JsonRepo<T> para una ruta de archivo dada
+    public static JsonRepo<T> GetInstance(string filePath) =>
+        _instances.GetOrAdd(filePath, fp => new JsonRepo<T>(fp));
 
     // Metodo para cargar todos los items del archivo
     public List<T> Load()
     {
-        // Si el archivo no existe, retorna una lista vacia
-        if (!File.Exists(_filePath))
-            return new List<T>();
+        // Asegura que el archivo exista antes de intentar cargarlo
+        EnsureFile();
 
         // Lee el contenido del archivo JSON
         string json = File.ReadAllText(_filePath);
@@ -60,9 +60,17 @@ public class JsonRepo<T>
         if (string.IsNullOrWhiteSpace(json))
             return new List<T>();
 
-        // Deserializamos el contenido completo a una lista de objetos T
-        // Si la deserializacion falla por X o Y razon, retornamos una lista vacia
-        return JsonSerializer.Deserialize<List<T>>(json) ?? new List<T>();
+        try
+        {
+            // Deserializamos el contenido completo a una lista de objetos T
+            // Si la deserializacion falla por X o Y razon, retornamos una lista vacia
+            return JsonSerializer.Deserialize<List<T>>(json, _options) ?? new List<T>();
+        }
+        catch (JsonException)
+        {
+            // Si el JSON se corrompio, no se puede deserializar, o algo raro idk, retornamos una lista vacia
+            return new List<T>();
+        }
     }
 
     // Metodo para guardar todos los items en el archivo (sobrescribe lo que haya)
