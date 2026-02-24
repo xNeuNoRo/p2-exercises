@@ -58,6 +58,14 @@ public class CsvRepo<T>
         File.AppendAllText(_filePath, ToLine(item) + "\n");
     }
 
+    // Metodo para encontrar un item que cumpla con el callback dado.
+    // Ej: x => x.Id == 5 (busca el item con Id 5)
+    public T? FindItem(Func<T, bool> cb)
+    {
+        // Buscamos el primer objeto que cumpla la condición del delegado
+        return GetCsv().FirstOrDefault(cb);
+    }
+
     // Metodo para guardar todos los items en el archivo (sobrescribe lo que haya)
     public void SaveCsv(List<T> items)
     {

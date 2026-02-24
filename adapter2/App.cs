@@ -46,15 +46,18 @@ public class AdapterApp
     {
         // Inyectamos un nuevo estudiante usando el servicio,
         // que a su vez delega al repositorio (que es el adaptador)
-        // para guardar el estudiante en el archivo CSV
-        _studentService.AddStudent(
-            _studentFactory.Create(
-                "20251122",
-                "Angel Gonzalez M.",
-                "20251122@itla.edu.do",
-                "Desarrollo de Software"
-            )
-        );
+        // para guardar el estudiante en el archivo (JSON o CSV segun la eleccion del usuario)
+        if (_studentService.GetStudentById("20251122") == null)
+        {
+            _studentService.AddStudent(
+                _studentFactory.Create(
+                    "20251122",
+                    "Angel Gonzalez M.",
+                    "20251122@itla.edu.do",
+                    "Desarrollo de Software"
+                )
+            );
+        }
 
         bool loop = true;
         while (loop)
@@ -63,16 +66,22 @@ public class AdapterApp
                 new InteractiveMenu.MenuArgs
                 {
                     MenuTitle = "Adapter Pattern App -  Menu Principal",
-                    Choices = ["Listar estudiantes", "Agregar estudiante", "Salir"],
+                    Choices =
+                    [
+                        "Listar estudiantes",
+                        "Listar estudiantes como JSON",
+                        "Agregar estudiante",
+                        "Salir",
+                    ],
                 }
             );
 
             switch (choice)
             {
                 case -1:
-                case 2:
+                case 3:
                 {
-                    if (HandleExit(choice == 2))
+                    if (HandleExit(choice == 3))
                     {
                         loop = false;
                     }
@@ -85,6 +94,12 @@ public class AdapterApp
                     break;
                 }
                 case 1:
+                {
+                    Console.WriteLine(_studentService.GetAllStudentsAsJson());
+                    PressEnterToContinue();
+                    break;
+                }
+                case 2:
                 {
                     var newStudent = CreateStudent();
                     _studentService.AddStudent(newStudent);

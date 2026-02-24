@@ -34,4 +34,10 @@ public class CsvRepoAdapter<T> : IFileRepo<T>
     {
         _csvRepo.AppendItem(item);
     }
+
+    // Metodo Find() que es el equivalente de FindItem() en CsvRepo<T>
+    public T? Find(Func<T, bool> cb)
+    {
+        return _csvRepo.FindItem(cb);
+    }
 }

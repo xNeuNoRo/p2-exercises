@@ -95,4 +95,12 @@ public class JsonRepo<T> : IFileRepo<T>
         // Guardamos nuevamente toda la lista en el archivo
         SaveData(items);
     }
+
+    // Metodo para encontrar un item que cumpla con el callback dado.
+    // Ej: x => x.Id == 5 (busca el item con Id 5)
+    public T? Find(Func<T, bool> cb)
+    {
+        // Buscamos el primer objeto que cumpla la condición del delegado
+        return ReadData().FirstOrDefault(cb);
+    }
 }
