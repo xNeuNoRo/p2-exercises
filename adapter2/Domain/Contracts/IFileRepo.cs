@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace App.Domain.Contracts;
 
 public interface IFileRepo<T>
