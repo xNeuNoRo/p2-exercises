@@ -1,5 +1,9 @@
+using System.Text.Json.Serialization;
+using App.Application;
 using App.Extensions;
+using App.Infrastructure;
 using App.Middlewares;
+using FluentValidation.AspNetCore;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,9 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Registramos el servicio de OpenAPI (Swagger) para documentación de la API
 builder.Services.AddOpenApi();
 
-// // Inyectamos las capas personalizadas que hemos creado previamente
-// builder.Services.AddPersistenceServices(builder.Configuration);
-// builder.Services.AddBusinessServices();
+// Inyectamos las capas personalizadas que hemos creado previamente
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 // Configuramos CORS para permitir solicitudes desde el frontend
 // Usando los origenes permitidos definidos en el archivo de appsettings
@@ -44,12 +48,22 @@ builder
         // utilizando el mEtodo de extensiOn que definimos en MvcOptionsExtensions
         options.ConfigureModelBindingMessages();
     })
+    .AddJsonOptions(options =>
+    {
+        // Configuramos el serializador JSON para que convierta los enums a sus representaciones en cadena,
+        // en lugar de usar sus valores numéricos, lo que hace que las respuestas de la API
+        // sean más legibles y fáciles de entender para los consumidores de la API
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    })
     .ConfigureApiBehaviorOptions(options =>
     {
         // Configuramos la respuesta de error personalizada para los casos en que el modelo de datos no sea válido,
         // utilizando el metodo de extension que definimos en ApiBehaviorOptionsExtensions
         options.ConfigureInvalidModelStateResponse();
     });
+
+// Registramos el auto mapeo de validaciones de FluentValidation para que se apliquen automáticamente a los modelos de datos
+builder.Services.AddFluentValidationAutoValidation();
 
 // Construimos la aplicación a partir de la configuración y servicios registrados
 var app = builder.Build();
@@ -69,7 +83,7 @@ if (app.Environment.IsDevelopment())
     // Mapeamos el endpoint para la referencia de la API,
     // lo que nos permitirá acceder a una página con ejemplos de cómo consumir la API
     // y ver la estructura de las solicitudes y respuestas
-    app.MapScalarApiReference();
+    app.MapScalarApiReference("/docs");
 }
 
 // Redirigimos todas las solicitudes HTTP a HTTPS para mayor seguridad
