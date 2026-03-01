@@ -7,8 +7,8 @@ public record PetResponseDto
 {
     public int Id { get; init; }
     public required string Name { get; init; }
-    public required PetSpecies SpeciesValue { get; init; }
-    public string Species => SpeciesValue.ToSpanishString();
+    public required PetSpecies Species { get; init; }
+    public string SpeciesName => Species.ToSpanishString();
     public required string Race { get; init; }
     public int Age { get; init; }
 }
