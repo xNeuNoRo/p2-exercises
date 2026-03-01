@@ -1,7 +1,7 @@
-using Expenses.Entities;
+using App.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Expenses.API.Controllers.Base;
+namespace App.Controllers.Base;
 
 // Esto es para tener una ruta comun para todos los controladores de la API
 // De esa forma evito repetir el "api/v1" en cada controlador

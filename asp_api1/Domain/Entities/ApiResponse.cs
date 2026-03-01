@@ -1,4 +1,4 @@
-namespace Expenses.Entities;
+namespace App.Entities;
 
 public class ApiResponse<T>
 {
