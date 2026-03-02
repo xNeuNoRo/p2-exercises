@@ -1,3 +1,5 @@
+"use client";
+
 import { updateProfileAction } from "@/actions/profile-actions";
 import { profileKeys } from "@/lib/query-keys";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -17,6 +19,10 @@ export function useUpdateProfile() {
       // Invalidamos la query de los perfiles para que se vuelva a consultar
       // en segundo plano y mostrar los datos actualizados
       queryClient.invalidateQueries({ queryKey: profileKeys.all });
+    },
+    onError: (err) => {
+      // Mostramos un mensaje de error al usuario si ocurre un error al actualizar el perfil
+      toast.error(err.message);
     },
   });
 }

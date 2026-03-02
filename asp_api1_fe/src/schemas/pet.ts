@@ -46,7 +46,7 @@ export const CreatePetSchema = PetSchema.pick({
   race: true,
   age: true,
 }).extend({
-  species: z.number(), // En la creación, species es un numero que representa el enum en el backend
+  species: z.number({ error: "El campo especie es obligatorio" }), // En la creación, species es un numero que representa el enum en el backend
 });
 
 // Para la actualizacion de una mascota, sera lo mismo.

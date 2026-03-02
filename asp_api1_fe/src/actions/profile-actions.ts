@@ -1,3 +1,5 @@
+"use server";
+
 import { ProfilesAPIType, updateProfile } from "@/api/ProfilesAPI";
 import { revalidatePath } from "next/cache";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { getPetById, getPets, getSpeciesList } from "@/api/PetsAPI";
 import { petKeys } from "@/lib/query-keys";
 import { Pet } from "@/schemas/pet";

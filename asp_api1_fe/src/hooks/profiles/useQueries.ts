@@ -1,3 +1,5 @@
+"use client";
+
 import { getProfileById, getProfiles } from "@/api/ProfilesAPI";
 import { profileKeys } from "@/lib/query-keys";
 import { Profile } from "@/schemas/profile";

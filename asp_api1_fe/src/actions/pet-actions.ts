@@ -1,3 +1,5 @@
+"use server";
+
 import { createPet, deletePet, PetsAPIType, updatePet } from "@/api/PetsAPI";
 import { CreatePetFormData, Pet } from "@/schemas/pet";
 import { revalidatePath } from "next/cache";
