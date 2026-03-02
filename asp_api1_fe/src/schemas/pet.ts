@@ -28,7 +28,7 @@ export const PetSchema = z.object({
     .min(1, "La raza es obligatoria")
     .max(100, "La raza no puede tener más de 100 caracteres"),
   age: z
-    .number()
+    .number({ error: "El campo edad es obligatorio" })
     .min(0, "La edad debe ser mayor o igual a 0")
     .max(20, "La edad máxima permitida es 20 años"),
 });

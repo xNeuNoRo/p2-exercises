@@ -17,6 +17,7 @@ import { UpdateProfileFormData, UpdateProfileSchema } from "@/schemas/profile";
 import { useQueryString } from "@/hooks/shared/useQueryString";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function ProfileCard({
   profileId,
@@ -123,8 +124,18 @@ export default function ProfileCard({
       </div>
 
       <div className="relative px-8 pb-10 pt-16">
-        <div className="absolute -top-20 left-8 flex h-32 w-32 items-center justify-center rounded-2xl border-4 border-white bg-gray-100 text-5xl font-bold text-blue-600 shadow-md">
-          {profile.name.charAt(0)}
+        <div className="absolute -top-20 left-8 flex h-32 w-32 overflow-hidden items-center justify-center rounded-2xl border-4 border-white bg-gray-100 text-5xl font-bold text-blue-600 shadow-md">
+          {profile.studentId === "2025-1122" ? (
+            <Image
+              src="/angel.webp"
+              alt={`Foto de perfil de ${profile.name}`}
+              fill
+              className="object-cover"
+              priority
+            />
+          ) : (
+            profile.name.charAt(0)
+          )}
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
