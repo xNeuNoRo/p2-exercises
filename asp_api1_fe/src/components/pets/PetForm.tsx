@@ -35,7 +35,7 @@ export default function PetForm({
           name: initialData.name,
           race: initialData.race,
           age: initialData.age,
-          species: Number(initialData.species), // Nos aseguramos de parsear a número según el schema
+          species: initialData.speciesId,
         }
       : {
           name: "",

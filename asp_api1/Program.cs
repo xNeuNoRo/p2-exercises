@@ -48,13 +48,13 @@ builder
         // utilizando el mEtodo de extensiOn que definimos en MvcOptionsExtensions
         options.ConfigureModelBindingMessages();
     })
-    // .AddJsonOptions(options =>
-    // {
-    //     // Configuramos el serializador JSON para que convierta los enums a sus representaciones en cadena,
-    //     // en lugar de usar sus valores numéricos, lo que hace que las respuestas de la API
-    //     // sean más legibles y fáciles de entender para los consumidores de la API
-    //     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    // })
+    .AddJsonOptions(options =>
+    {
+        // Configuramos el serializador JSON para que convierta los enums a sus representaciones en cadena,
+        // en lugar de usar sus valores numéricos, lo que hace que las respuestas de la API
+        // sean más legibles y fáciles de entender para los consumidores de la API
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    })
     .ConfigureApiBehaviorOptions(options =>
     {
         // Configuramos la respuesta de error personalizada para los casos en que el modelo de datos no sea válido,

@@ -21,6 +21,7 @@ export const PetSchema = z.object({
     ]),
     z.string(),
   ]),
+  speciesId: z.number(),
   speciesName: z.string(),
   race: z
     .string()
