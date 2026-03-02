@@ -15,11 +15,7 @@ export default function AppProvider({ children }: Readonly<AppProviderProps>) {
     <QueryClientProvider client={queryClient}>
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
-      <ToastContainer
-        pauseOnHover={true}
-        pauseOnFocusLoss={false}
-        theme="dark"
-      />
+      <ToastContainer pauseOnHover={true} pauseOnFocusLoss={false} />
     </QueryClientProvider>
   );
 }
