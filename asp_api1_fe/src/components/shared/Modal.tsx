@@ -73,14 +73,14 @@ export default function Modal({
               leaveTo="opacity-0 scale-50"
             >
               <DialogPanel
-                className={`w-full ${sizeClasses[size]} transform rounded-2xl bg-background p-8 text-left align-middle shadow-xl transition-all border border-border`}
+                className={`w-full ${sizeClasses[size]} transform rounded-2xl bg-white p-8 text-left align-middle shadow-xl transition-all border border-gray-200`}
               >
                 {/* Header superior: Botón de cerrar integrado */}
                 <div className="flex items-start justify-between">
                   {header}
                   <DialogTitle
                     as="h3"
-                    className={`text-2xl font-bold text-main font-display truncate ${
+                    className={`text-2xl font-bold text-gray-900 font-display truncate ${
                       header ? "mt-4" : ""
                     }`}
                   >
@@ -88,7 +88,7 @@ export default function Modal({
                   </DialogTitle>
                   <button
                     onClick={close}
-                    className="ml-4 rounded-full p-1 text-muted hover:bg-surface hover:text-main hover:cursor-pointer transition-colors"
+                    className="ml-4 rounded-full p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 hover:cursor-pointer transition-colors"
                   >
                     <IoClose className="h-6 w-6" />
                   </button>

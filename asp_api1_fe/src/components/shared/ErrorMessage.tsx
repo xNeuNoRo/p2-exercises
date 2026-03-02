@@ -5,7 +5,7 @@ export default function ErrorMessage({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <div className="p-3 text-xs font-bold text-center text-danger uppercase bg-danger/10 border border-danger/20 rounded-lg animate-in fade-in slide-in-from-top-1">
+    <div className="p-3 text-xs font-bold text-center text-red-600 uppercase bg-red-50 border border-red-200 rounded-lg animate-in fade-in slide-in-from-top-1">
       {children}
     </div>
   );

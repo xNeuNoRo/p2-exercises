@@ -31,13 +31,13 @@ export default function SpeciesSelect({
     <div className={`flex flex-col gap-2 ${className}`}>
       <label
         htmlFor={speciesSelectId}
-        className="text-sm font-semibold text-main"
+        className="text-sm font-semibold text-gray-900"
       >
         Especie
       </label>
 
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
           <IoPrism className="h-4 w-4" />
         </div>
 
@@ -47,10 +47,10 @@ export default function SpeciesSelect({
           onChange={(e) => onChange(e.target.value)}
           disabled={isLoading}
           className={`
-            block w-full rounded-lg border bg-surface py-2.5 pl-10 pr-3 text-sm text-main transition-all hover:cursor-pointer
-            focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary
+            block w-full rounded-lg border bg-gray-50 py-2.5 pl-10 pr-3 text-sm text-gray-900 transition-all hover:cursor-pointer
+            focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500
             disabled:opacity-50
-            ${error ? "border-danger" : "border-border"}
+            ${error ? "border-red-500" : "border-gray-300"}
           `}
         >
           <option value="">
