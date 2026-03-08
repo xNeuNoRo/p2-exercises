@@ -2,6 +2,7 @@ using App.Domain.Entities;
 using App.Domain.Enums;
 using App.Domain.Factories;
 using App.Domain.Services;
+using App.Extensions;
 using App.Helpers;
 using App.Infrastructure.Factories;
 using App.Infrastructure.Services;
@@ -99,9 +100,9 @@ public class EmployeeApp
             return true;
         }
     }
-    
+
     // =====================================
-    // Logica de Vistas 
+    // Logica de Vistas
     // (Lo dejo aqui para no complicar el ejercicio)
     // =====================================
 
@@ -152,11 +153,10 @@ public class EmployeeApp
         var exporter = new ExporterContext(ExporterFactory.CreateExporter(exporterType, filePath));
         foreach (var employee in employees)
         {
-            await exporter.Export(employee);
+            await exporter.Export(employee.ToExportDto());
             _employees.Remove(employee);
         }
     }
-
 
     // =====================================
     // Logica de Servicios

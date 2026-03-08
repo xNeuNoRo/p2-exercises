@@ -1,18 +1,18 @@
-using App.Domain.Entities;
+using App.DTOs;
 using App.Infrastructure.Interfaces;
 
 namespace App.Infrastructure.Services;
 
 public class ExporterContext
 {
-    private readonly IExporter<Employee> _exporter;
+    private readonly IExporter<EmployeeExportDto> _exporter;
 
-    public ExporterContext(IExporter<Employee> exporter)
+    public ExporterContext(IExporter<EmployeeExportDto> exporter)
     {
         _exporter = exporter;
     }
 
-    public async Task Export(Employee employee)
+    public async Task Export(EmployeeExportDto employee)
     {
         await _exporter.Export(employee);
     }
