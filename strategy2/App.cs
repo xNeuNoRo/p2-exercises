@@ -151,11 +151,11 @@ public class EmployeeApp
             _ => throw new InvalidOperationException("Opción no válida"),
         };
         var exporter = new ExporterContext(ExporterFactory.CreateExporter(exporterType, filePath));
-        foreach (var employee in employees)
+        foreach (var employee in employees.ToList())
         {
             await exporter.Export(employee.ToExportDto());
-            _employees.Remove(employee);
         }
+        employees.Clear();
     }
 
     // =====================================
