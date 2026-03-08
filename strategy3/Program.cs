@@ -1,6 +1,6 @@
 ﻿using App;
 
-namespace Ejercicio2Strategy;
+namespace Ejercicio3Strategy;
 
 public class Program
 {
