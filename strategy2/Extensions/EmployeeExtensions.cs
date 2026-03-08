@@ -1,4 +1,3 @@
-// App/Extensions/EmployeeExtensions.cs
 using App.Domain.Entities;
 using App.DTOs;
 
