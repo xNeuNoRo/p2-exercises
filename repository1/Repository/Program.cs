@@ -17,8 +17,9 @@ builder.Services.AddSqlServer<BibliotecaContext>(builder.Configuration.GetConnec
 builder.Services.AddScoped(typeof(IRepository<>),typeof(RepositoryServices<>));
 
 //Configurando los servicios normales
-//builder.Services.AddScoped<IAutor,AutorServices>();
-//builder.Services.AddScoped<ICategoria, CategoriaServices>();
+builder.Services.AddScoped<IAutor, AutorServices>();
+builder.Services.AddScoped<ICategoria, CategoriaServices>();
+builder.Services.AddScoped<IEditorial, EditorialServices>();
 
 var app = builder.Build();
 

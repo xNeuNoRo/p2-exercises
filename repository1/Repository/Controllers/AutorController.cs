@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Interfaces;
 using Repository.Models;
@@ -10,22 +11,23 @@ namespace Repository.Controllers
     [ApiController]
     public class AutorController : ControllerBase
     {
-        private readonly IRepository<Autor> service;
-        public AutorController(IRepository<Autor> service)
+        private readonly IAutor service;
+        public AutorController(IAutor service)
         {
             this.service = service;
         }
 
         [HttpGet]
-        public ActionResult GetAll()
+        [ProducesResponseType(typeof(IEnumerable<Autor>), StatusCodes.Status200OK)]
+        public ActionResult<IEnumerable<Autor>> GetAll()
         { 
-            return Ok(service.GetAll());
+            return Ok(service.GetAutores());
         }
 
         [HttpPost]
         public void Create(Autor modelo)
         {
-            service.Set(modelo);
+            service.SetAutor(modelo);
         }
     }
 }
