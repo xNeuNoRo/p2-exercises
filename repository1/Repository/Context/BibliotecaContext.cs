@@ -9,5 +9,6 @@ namespace Repository.Context
 
         public DbSet<Autor> Autor { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
+        public DbSet<Editorial> Editorial { get; set; }
     }
 }
