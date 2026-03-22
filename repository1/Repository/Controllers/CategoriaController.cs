@@ -16,6 +16,7 @@ namespace Repository.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Categoria>), StatusCodes.Status200OK)]
         public ActionResult GetAll()
         {
             var resultado = _service.GetCategorias();//esta linea me da error: System.NullReferenceException: 'Object reference not set to an instance of an object.'
