@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace SharpTask.API.Extensions;
+namespace PracticaAPI.Extensions;
 
 /// <summary>
 /// Extensiones para configurar mensajes de error personalizados
