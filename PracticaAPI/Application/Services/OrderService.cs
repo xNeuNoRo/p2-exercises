@@ -127,6 +127,12 @@ public class OrderService
             );
         }
 
+        // Regla: No permitir cantidades menores o iguales a 0
+        if (quantity <= 0)
+        {
+            throw AppException.BadRequest("La cantidad debe ser mayor a 0", ErrorCodes.BadRequest);
+        }
+
         if (product.Stock < quantity)
         {
             throw AppException.BadRequest(
@@ -135,9 +141,19 @@ public class OrderService
             );
         }
 
-        var orderItem = new OrderProducts { Product = product, Quantity = quantity };
+        // Si el producto ya existe en el pedido no se duplica, se incrementa la cantidad
+        var existingOrderItem = order.Products.FirstOrDefault(p => p.Product.Id == productId);
 
-        order.Products.Add(orderItem);
+        if (existingOrderItem != null)
+        {
+            existingOrderItem.Quantity += quantity;
+        }
+        else
+        {
+            var orderItem = new OrderProducts { Product = product, Quantity = quantity };
+            order.Products.Add(orderItem);
+        }
+
         product.Stock -= quantity;
 
         await _orderRepo.UpdateAsync(order);

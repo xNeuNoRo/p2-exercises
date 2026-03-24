@@ -64,7 +64,7 @@ public class OrderController : BaseApiController
         return Success();
     }
 
-    [HttpPost("{orderId:guid}/remove-product/{productId:guid}")]
+    [HttpDelete("{orderId:guid}/product/{productId:guid}")]
     public async Task<IActionResult> RemoveProduct(
         [FromRoute] Guid orderId,
         [FromRoute] Guid productId
